@@ -1,5 +1,6 @@
 #include "cbase.h"
 #include "swarmforge_topview_camera.h"
+#include "swarmforge_camera_volume.h"
 #include "c_swarmforge_player.h"
 #include "input.h"
 
@@ -142,7 +143,15 @@ void CSwarmForgeTopViewCamera::CalculateCameraPosition( C_SwarmForgePlayer *pPla
 		return;
 
 	Vector vecPlayerOrigin = pPlayer->GetAbsOrigin();
-	
+
+	// Check if player is in a camera volume
+	float flCameraVolumePitch = C_SwarmForge_CameraVolume::IsPointInCameraVolume( vecPlayerOrigin );
+	if ( flCameraVolumePitch >= 0.0f )
+	{
+		// Use camera volume's pitch
+		m_flCameraPitch = flCameraVolumePitch;
+	}
+
 	// Calculate target camera position
 	float flPitch = m_flCameraPitch;
 	float flYaw = m_flCameraYaw;

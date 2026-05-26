@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# SwarmForge Launcher Script
+# This script launches the SwarmForge mod
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+GAME_DIR="$SCRIPT_DIR/mod_swarmforge"
+
+# Check if the mod directory exists
+if [ ! -d "$GAME_DIR" ]; then
+    echo "Error: SwarmForge mod directory not found at $GAME_DIR"
+    exit 1
+fi
+
+# Launch the game with the SwarmForge mod
+cd "$SCRIPT_DIR"
+./mod_swarmforge_linux64 "$@"

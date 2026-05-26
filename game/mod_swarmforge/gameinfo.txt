@@ -1,0 +1,93 @@
+"GameInfo"
+{
+	game	"SwarmForge"
+	title	"SwarmForge"
+	title2	""
+	type multiplayer_only
+	nomodels 0
+	nohimodel 1
+	nocrosshair 0
+	supportsvr	1
+	hidden_maps
+	{
+		"test_speakers"		1
+		"test_hardware"		1
+	}
+
+	FileSystem
+	{
+		SteamAppId				243750
+		
+		//
+		// Setup engine search paths.
+		//
+		// If a search path contains "_english", and the current language is not english, then
+		// another search path will be inserted above the english one by replacing "_english" with
+		// the appropriate language.
+		//
+		// To debug how the engine has parsed this file, type "path" at the console.
+		//
+		// Search paths are relative to the base directory, which is where hl2.exe is found.
+		//
+		// |gameinfo_path| points at the directory where gameinfo.txt is.
+		// |all_source_engine_paths| points at the directory containing HL2 shared content.
+		//
+		SearchPaths
+		{
+			// First, mount all user customizations.  This will search for VPKs and subfolders
+			// and mount them in alphabetical order.  The easiest way to distribute a mod is to
+			// pack up the custom content into a VPK.  To "install" a mod, just drop it in this
+			// folder.
+			//
+			// Note that this folder is scanned only when the game is booted.
+			game+mod			mod_swarmforge/custom/*
+
+			// Now search loose files.  We'll set the directory containing the gameinfo.txt file
+			// as the first "mod" search path (after any user customizations).  This is also the one
+			// that's used when writing to the "mod" path.
+			mod+mod_write		|gameinfo_path|.
+			game+game_write		|gameinfo_path|.
+			default_write_path	|gameinfo_path|.
+			gamebin				|gameinfo_path|bin
+
+			// Mount Alien Swarm content (AppID 630) - REQUIRED
+			// Alien Swarm is free and provides the base game data
+			game+mod			|appid_630|swarm/swarm_english.vpk
+			game+mod			|appid_630|swarm/swarm_pak.vpk
+			game				|appid_630|swarm
+
+			// Mount HL2 content (AppID 220) - OPTIONAL
+			// Uncomment if you have HL2 installed and want to use its assets
+			//game				|appid_220|hl2/hl2_textures.vpk
+			//game				|appid_220|hl2/hl2_sound_vo_english.vpk
+			//game				|appid_220|hl2/hl2_sound_misc.vpk
+			//game				|appid_220|hl2/hl2_misc.vpk
+			//game				|appid_220|hl2
+
+			// Mount HL2 content from SDK (AppID 243750) - OPTIONAL
+			// This provides basic HL2 content included with the SDK
+			game				|appid_243750|hl2/hl2_textures.vpk
+			game				|appid_243750|hl2/hl2_sound_vo_english.vpk
+			game				|appid_243750|hl2/hl2_sound_misc.vpk
+			game				|appid_243750|hl2/hl2_misc.vpk
+			game				|appid_243750|hl2
+
+			// Platform files
+			platform			|appid_243750|platform/platform_misc.vpk
+			platform			|appid_243750|platform
+
+			// Random files downloaded from gameservers go into a seperate directory, so
+			// that it's easy to keep those files segregated from the official game files
+			// or customizations intentially installed by the user.
+			//
+			// This directory is searched LAST.  If you visit a server and download
+			// a custom model, etc, we don't want that file to override the default
+			// game file indefinitely (after you have left the server).  Servers CAN have
+			// custom content that overrides the default game files, it just needs to be
+			// packed up in the .bsp file so that it will be mounted as a map search pack.
+			// The map search pack is mounted at the top of the search path list,
+			// but only while you are connected that server and on that map.
+			game+download	mod_swarmforge/download
+		}
+	}
+}

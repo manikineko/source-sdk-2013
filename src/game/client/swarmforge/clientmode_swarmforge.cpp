@@ -3,6 +3,7 @@
 #include "vgui_int.h"
 #include "vgui/IVGui.h"
 #include "iinput.h"
+#include "swarmforge_topview_camera.h"
 
 static ClientModeSwarmForge g_ClientModeNormal;
 
@@ -28,8 +29,14 @@ void ClientModeSwarmForge::Init()
 {
 	BaseClass::Init();
 
+	// Initialize topview camera system
+	if ( g_pSwarmForgeTopViewCamera )
+	{
+		g_pSwarmForgeTopViewCamera->Init();
+	}
+
 	// Load scheme
-	vgui::scheme()->LoadSchemeFromFile( "resource/SwarmForgeScheme.res", "SwarmForge" );
+	vgui->scheme()->LoadSchemeFromFile( "resource/SwarmForgeScheme.res", "SwarmForge" );
 }
 
 void ClientModeSwarmForge::InitViewport()

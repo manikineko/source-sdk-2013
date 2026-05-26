@@ -64,6 +64,15 @@
 			//game				|appid_220|hl2/hl2_misc.vpk
 			//game				|appid_220|hl2
 
+			// Mount TF2 content (AppID 440) - OPTIONAL
+			// Uncomment if you have TF2 installed and want to use its assets
+			game_lv				|appid_440|tf/tf2_lv.vpk
+			game+mod			|appid_440|tf/tf2_textures.vpk
+			game+mod			|appid_440|tf/tf2_sound_vo_english.vpk
+			game+mod			|appid_440|tf/tf2_sound_misc.vpk
+			game+mod+vgui		|appid_440|tf/tf2_misc.vpk
+			game				|appid_440|tf
+
 			// Mount HL2 content from SDK (AppID 243750) - OPTIONAL
 			// This provides basic HL2 content included with the SDK
 			game				|appid_243750|hl2/hl2_textures.vpk
